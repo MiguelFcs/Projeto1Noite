@@ -1,3 +1,5 @@
+<?php include("./cabecalho.php"); ?>
+
 <?php
 
     include "conexao.php";
@@ -11,10 +13,11 @@
         $e = $_POST["E"];
         $correta = $_POST["correta"];
 
+    
+        $query= "insert into questoes (pergunta,a,b,c,d,e,correta)";
+        $query= $query." values('$pergunta','$a','$b','$c','$d','$e','$correta')";
+        $resultado =  mysqli_query($conexao, $query);
     }
-    $query= "insert into questoes (pergunta,a,b,c,d,e,correta)";
-    $query= $query." values('$pergunta','$a','$b','$c','$d','$e','$correta')";
-    $resultado =  mysqli_query($conexao, $query);
 ?>
 
 <form action="./index.php" method="post">
@@ -58,7 +61,7 @@
 </form>
 
 <?php
-    $query = "select * from questoes order by id desc";
+    $query = "select * from questoes order by rand() desc limit 15";
     $resultado = mysqli_query($conexao, $query);
 
     while($linha = mysqli_fetch_array($resultado)){
@@ -74,4 +77,5 @@
         <?php
 
     }
+
 ?>
